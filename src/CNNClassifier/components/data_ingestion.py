@@ -1,9 +1,9 @@
 import os
 import zipfile
 import gdown
-from src.CNNClassifier import logger
-from src.CNNClassifier.utils.common import get_size
-from src.CNNClassifier.entity.config_entity import DataIngestionConfig
+from CNNClassifier import logger
+from CNNClassifier.utils.common import get_size
+from CNNClassifier.entity.config_entity import DataIngestionConfig
 class DataIngestion:
     def __init__(self, config: DataIngestionConfig):
         self.config = config

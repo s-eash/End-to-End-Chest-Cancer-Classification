@@ -3,7 +3,8 @@ from src.CNNClassifier import logger
 from src.CNNClassifier.pipeline.stage_01 import DataIngestionTrainingPipiline
 from src.CNNClassifier.pipeline.stage_02 import PrepareBaseModelTrainingPipeline
 from src.CNNClassifier.pipeline.stage_03 import ModelTrainingPipeline
-
+from src.CNNClassifier.pipeline.stage_04 import EvaluationPipeline
+import dagshub
 
 STAGE_NAME  = "Data Ingestion stage"
 
@@ -37,6 +38,19 @@ try:
    model_trainer = ModelTrainingPipeline()
    model_trainer.main()
    logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+except Exception as e:
+        logger.exception(e)
+        raise e
+
+STAGE_NAME = "Evaluation"
+dagshub.init(repo_owner='eashwaransridhar', repo_name='End-to-End-Chest-Cancer-Classification', mlflow=True)
+try:
+   logger.info(f"*******************")
+   logger.info(f">>>>>> stage {STAGE_NAME} started <<<<<<")
+   model_evalution = EvaluationPipeline()
+   model_evalution.main()
+   logger.info(f">>>>>> stage {STAGE_NAME} completed <<<<<<\n\nx==========x")
+
 except Exception as e:
         logger.exception(e)
         raise e
